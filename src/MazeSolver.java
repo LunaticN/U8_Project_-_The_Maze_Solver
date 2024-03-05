@@ -15,20 +15,34 @@ public class MazeSolver {
         path.add("(" + 0 + ", " + 0 + ")");
         while(!(r == maze.length - 1 && c == maze[0].length - 1)){
             String routes = lookAround(r, c);
-            maze[r][c] = "#";
-            if (Integer.parseInt(routes) == 0){
-                r++;
+            if (routes.length() == 0){
+                maze[r][c] = "#";
+                r = 0;
+                c = 0;
+                for (int R = 0; R < maze.length; R++) {
+                    for (int C = 0; C < maze[0].length; C++) {
+                        if (maze[R][C].equals("V")){
+                            maze[R][C] = ".";
+                        }
+                    }
+                }
             }
-            if (Integer.parseInt(routes) == 1){
-                r--;
+            else {
+                maze[r][c] = "V";
+                if (Integer.parseInt(routes.substring(0, 1)) == 0) {
+                    r++;
+                }
+                if (Integer.parseInt(routes.substring(0, 1)) == 1) {
+                    r--;
+                }
+                if (Integer.parseInt(routes.substring(0, 1)) == 2) {
+                    c--;
+                }
+                if (Integer.parseInt(routes.substring(0, 1)) == 3) {
+                    c++;
+                }
+                path.add("(" + r + ", " + c + ")");
             }
-            if (Integer.parseInt(routes) == 2){
-                c--;
-            }
-            if (Integer.parseInt(routes) == 3){
-                c++;
-            }
-            path.add("(" + r + ", " + c + ")");
         }
     }
 
