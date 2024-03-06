@@ -19,13 +19,9 @@ public class MazeSolver {
                 maze[r][c] = "#";
                 r = 0;
                 c = 0;
-                for (int R = 0; R < maze.length; R++) {
-                    for (int C = 0; C < maze[0].length; C++) {
-                        if (maze[R][C].equals("V")){
-                            maze[R][C] = ".";
-                        }
-                    }
-                }
+                path.clear();
+                path.add("(" + 0 + ", " + 0 + ")");
+                clearRun();
             }
             else {
                 maze[r][c] = "V";
@@ -80,13 +76,23 @@ public class MazeSolver {
         return directions;
     }
 
+    private void clearRun(){
+        for (int r = 0; r < maze.length; r++) {
+            for (int c = 0; c < maze[0].length; c++) {
+                if (maze[r][c].equals("V")){
+                    maze[r][c] = ".";
+                }
+            }
+        }
+    }
+
     public void printPath(){
         for (int i = 0; i < path.size(); i++) {
             if (i == path.size() - 1){
                 System.out.println(path.get(i));
                 break;
             }
-            System.out.print(path.get(i) + "-->");
+            System.out.print(path.get(i) + " ---> ");
         }
     }
 }
